@@ -21,21 +21,10 @@ class Register extends React.Component {
     this.setState({ password: e.target.value });
   };
 
-  buttonClicked = () => {
-    fetch('http://localhost:3001/test', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/11json',
-      },
-    })
-      .then(response => response.json())
-      .then(console.log('Connected to back-end'));
-  };
 
   onSubmitRegister = async () => {
     try {
-      const response = await fetch('http://localhost:3001/register', {
+      const response = await fetch(`${process.env.SERVER}register`, {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',

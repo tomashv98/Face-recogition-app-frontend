@@ -37,7 +37,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3001/', {
+    fetch(`${process.env.SERVER}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ class App extends Component {
     try {
       console.log('Submitted');
       this.setState({ imageURL: this.state.input });
-      fetch('http://localhost:3001/face', {
+      fetch(`${process.env.SERVER}face`, {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',
