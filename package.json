@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "babel-eslint": "^10.0.1",
     "clarifai": "^2.9.0",
     "cors": "^2.8.5",
     "react": "^16.8.6",
@@ -27,7 +28,5 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "devDependencies": {
-    "babel-eslint": "^10.0.1"
-  }
+  "devDependencies": {}
 }
