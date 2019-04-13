@@ -37,7 +37,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch(`${process.env.SERVER}`, {
+    fetch(process.env.SERVER, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
