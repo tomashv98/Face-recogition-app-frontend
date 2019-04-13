@@ -1,7 +1,4 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Courier New', Courier, monospace;
+.Tilt {
   background-image: linear-gradient(
     to right,
     #051937,
@@ -10,8 +7,4 @@ body {
     #00bf72,
     #a8eb12
   );
-}
-
-button {
-  cursor: pointer;
 }
