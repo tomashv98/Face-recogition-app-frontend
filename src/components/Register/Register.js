@@ -24,7 +24,7 @@ class Register extends React.Component {
 
   onSubmitRegister = async () => {
     try {
-      const response = await fetch(`${process.env.SERVER}/register`, {
+      const response = await fetch(`https://face-recognition-bytom.herokuapp.com/register`, {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',

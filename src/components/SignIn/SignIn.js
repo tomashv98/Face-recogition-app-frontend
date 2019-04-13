@@ -19,7 +19,7 @@ class SignIn extends React.Component {
 
   onSubmitSignin = e => {
     e.preventDefault();
-    fetch(`${process.env.SERVER}/login`, {
+    fetch(`https://face-recognition-bytom.herokuapp.com/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

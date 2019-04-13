@@ -37,7 +37,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch(`${process.env.SERVER}/`, {
+    fetch(`https://face-recognition-bytom.herokuapp.com/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ class App extends Component {
     try {
       console.log('Submitted');
       this.setState({ imageURL: this.state.input });
-      fetch(`${process.env.SERVER}/face`, {
+      fetch(`https://face-recognition-bytom.herokuapp.com/face`, {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',
