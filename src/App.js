@@ -25,7 +25,7 @@ const particlesOption = {
 const intialState = {
   input: '',
   imageURL: '',
-  box: {},
+  boxes: [],
   route: 'signIn',
   isSignedIn: false,
 };
@@ -37,7 +37,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch(`https://face-recognition-bytom.herokuapp.com/`, {
+    fetch(process.env.REACT_APP_SERVER_URL, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -45,21 +45,30 @@ class App extends Component {
       },
     })
       .then(response => response.json())
-      .then(console.log('Connected to back-end'))
+      .then(res=>console.log(res))
       .catch(console.log);
   }
 
   calculateFace = data => {
-    const face = data.outputs[0].data.regions[0].region_info.bounding_box;
+    // One face
+    //const face = data.outputs[0].data.regions[0].region_info.bounding_box;
     const image = document.querySelector('#inputimage');
     const width = Number(image.width);
     const height = Number(image.height);
-    return {
-      leftCol: face.left_col * width,
-      topRow: face.top_row * height,
-      rightCol: width - face.right_col * width,
-      bottomRow: height - face.bottom_row * height,
-    };
+    const coordinates = [];
+    data.outputs.forEach(output => {
+      return output.data.regions.forEach(regions => {
+        const face = regions.region_info.bounding_box;
+        coordinates.push({
+          leftCol: face.left_col * width,
+          topRow: face.top_row * height,
+          rightCol: width - face.right_col * width,
+          bottomRow: height - face.bottom_row * height,
+          id: regions.id
+        });
+      });
+    });
+    return coordinates
   };
 
   onInputChange = event => {
@@ -68,9 +77,8 @@ class App extends Component {
 
   onButtonSubmit = async () => {
     try {
-      console.log('Submitted');
       this.setState({ imageURL: this.state.input });
-      fetch(`https://face-recognition-bytom.herokuapp.com/face`, {
+      fetch(`${process.env.REACT_APP_SERVER_URL}/face`, {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',
@@ -88,14 +96,13 @@ class App extends Component {
     }
   };
 
-  displayFace = box => {
-    this.setState({ box });
-    console.log(box);
+  displayFace = boxes => {
+    this.setState({ boxes });
   };
 
   onRouteChange = route => {
     if (route === 'signOut') {
-      this.setState(intialState );
+      this.setState(intialState);
     }
     if (route === 'home') {
       this.setState({ isSignedIn: true });
@@ -104,7 +111,7 @@ class App extends Component {
   };
 
   render() {
-    const { isSignedIn, imageURL, route, box } = this.state;
+    const { isSignedIn, imageURL, route, boxes } = this.state;
     return (
       <div className='App'>
         <Particles className='particles' params={particlesOption} />
@@ -120,7 +127,7 @@ class App extends Component {
               onInputChange={this.onInputChange}
               onButtonSubmit={this.onButtonSubmit}
             />
-            <FaceRecognition imageURL={imageURL} box={box} />
+            <FaceRecognition imageURL={imageURL} boxes={boxes} />
           </div>
         ) : route === 'signIn' ? (
           <SignIn onRouteChange={this.onRouteChange} />
@@ -133,4 +140,3 @@ class App extends Component {
 }
 
 export default App;
-

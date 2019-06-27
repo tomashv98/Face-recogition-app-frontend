@@ -1,11 +1,12 @@
 {
-  "name": "facerecognition",
+  "name": "squareface",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "babel-eslint": "^10.0.1",
     "clarifai": "^2.9.0",
     "cors": "^2.8.5",
+    "env-cmd": "^9.0.3",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-particles-js": "^2.5.1",
